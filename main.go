@@ -3,7 +3,6 @@ package main
 import (
 	"net/http"
 	"project/src/databases/supabase"
-	"project/src/helpers"
 	"project/src/router"
 
 	"github.com/gin-gonic/gin"
@@ -21,6 +20,6 @@ func main() {
 	})
 
 	router.Apirouter(r)
-	PORT, _ := helpers.EnvGetProperty("PORT")
-	r.Run("0.0.0.0:" + PORT)
+	// PORT, _ := helpers.EnvGetProperty("PORT")
+	r.Run("0.0.0.0:10000")
 }
