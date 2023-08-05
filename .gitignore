@@ -2,4 +2,4 @@
 envs
 
 # builds
-*exe
+*.exe

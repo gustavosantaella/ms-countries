@@ -10,12 +10,11 @@ import (
 func EnvGetProperty(key string) (string, error) {
 
 	var envs map[string]string
-	environment := os.Args[1]
-
-	if environment == "production" {
+	arguments := os.Args
+	if len(arguments) == 1 {
 		return os.Getenv(key), nil
 	}
-	finalEnv := "./envs/.env." + environment
+	finalEnv := "./envs/.env." + arguments[1]
 
 	envs, err := godotenv.Read(finalEnv)
 
