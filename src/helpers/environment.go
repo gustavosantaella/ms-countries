@@ -2,6 +2,7 @@ package helpers
 
 import (
 	"log"
+	"os"
 
 	"github.com/joho/godotenv"
 )
@@ -9,8 +10,9 @@ import (
 func EnvGetProperty(key string) (string, error) {
 
 	var envs map[string]string
-
-	envs, err := godotenv.Read("./envs/.env.local")
+	environment := os.Args[1]
+	finalEnv := "./envs/.env." + environment
+	envs, err := godotenv.Read(finalEnv)
 
 	if err != nil {
 		log.Fatal("Error loading environment file")
