@@ -50,7 +50,10 @@ func CurrencyConversion(base string, qoute string, amount string) (interface{}, 
 	}
 	var r map[string]interface{}
 	json.NewDecoder(response.Body).Decode(&r)
-	response.Body.Close()
+	closeError := response.Body.Close()
+	if closeError != nil {
+		return nil, closeError
+	}
 	var r2 []CurrencyResponse
 	jsonData, err := json.Marshal(r["response"])
 	if err != nil {
