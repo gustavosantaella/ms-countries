@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"fmt"
 	"net/http"
 	"project/src/modules/currencies/app/services"
 
@@ -14,6 +15,7 @@ func CurrencyConversion(gin *gin.Context) {
 
 	response, err := services.CurrencyConversion(base, qoute, amount)
 	if err != nil && response == nil {
+		fmt.Println(err)
 		gin.JSON(http.StatusBadRequest, err)
 		return
 
