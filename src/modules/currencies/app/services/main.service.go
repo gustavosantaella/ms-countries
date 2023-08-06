@@ -24,7 +24,10 @@ func CurrencyConversion(base string, qoute string, amount string) (interface{}, 
 		Amount         interface{} `json:"amount"`
 		Converted      interface{} `json:"converted"`
 	}
-	API_CURRENCY_URL, _ := helpers.EnvGetProperty("CURRENCY_API")
+	API_CURRENCY_URL, err := helpers.EnvGetProperty("CURRENCY_API")
+	if err != nil {
+		return nil, err
+	}
 	API_CURRENCY_URL = strings.ReplaceAll(API_CURRENCY_URL, "{BASE}", base)
 	API_CURRENCY_URL = strings.ReplaceAll(API_CURRENCY_URL, "{QOUTE}", qoute)
 	startDate := time.Now().Format("2006-01-02")
@@ -32,6 +35,9 @@ func CurrencyConversion(base string, qoute string, amount string) (interface{}, 
 	API_CURRENCY_URL = strings.ReplaceAll(API_CURRENCY_URL, "{ENDDATE}", endDate)
 	API_CURRENCY_URL = strings.ReplaceAll(API_CURRENCY_URL, "{STARTDATE}", startDate)
 	request, err := http.NewRequest("GET", API_CURRENCY_URL, nil)
+	if err != nil {
+		return nil, err
+	}
 	request.Header.Set("Content-Type", "application/json; charset=utf-8")
 	if err != nil {
 		return nil, err
@@ -44,13 +50,16 @@ func CurrencyConversion(base string, qoute string, amount string) (interface{}, 
 	}
 	var r map[string]interface{}
 	json.NewDecoder(response.Body).Decode(&r)
+	response.Body.Close()
 	var r2 []CurrencyResponse
 	jsonData, err := json.Marshal(r["response"])
 	if err != nil {
 		return nil, err
 	}
-	json.Unmarshal(jsonData, &r2)
-
+	unmarshalError := json.Unmarshal(jsonData, &r2)
+	if unmarshalError != nil {
+		return nil, unmarshalError
+	}
 	curremtR2 := r2[0]
 	curremtR2.Amount = amount
 	floatParsed, err := (strconv.ParseFloat(curremtR2.Average_ask, 64))
