@@ -2,6 +2,7 @@ package services
 
 import (
 	"encoding/json"
+	"errors"
 	"net/http"
 	"project/src/helpers"
 	"strconv"
@@ -62,6 +63,9 @@ func CurrencyConversion(base string, qoute string, amount string) (interface{}, 
 	unmarshalError := json.Unmarshal(jsonData, &r2)
 	if unmarshalError != nil {
 		return nil, unmarshalError
+	}
+	if len(r2) == 0 {
+		return nil, errors.New("response is empty")
 	}
 	curremtR2 := r2[0]
 	curremtR2.Amount = amount
