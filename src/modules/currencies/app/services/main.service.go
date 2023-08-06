@@ -3,6 +3,7 @@ package services
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
 	"net/http"
 	"project/src/helpers"
 	"strconv"
@@ -65,6 +66,7 @@ func CurrencyConversion(base string, qoute string, amount string) (interface{}, 
 		return nil, unmarshalError
 	}
 	if len(r2) == 0 {
+		fmt.Println(API_CURRENCY_URL)
 		return nil, errors.New("response is empty")
 	}
 	curremtR2 := r2[0]
