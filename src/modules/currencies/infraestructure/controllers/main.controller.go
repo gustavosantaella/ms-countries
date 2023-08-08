@@ -22,3 +22,15 @@ func CurrencyConversion(gin *gin.Context) {
 	}
 	gin.JSON(http.StatusOK, response)
 }
+
+func AllCurrencies(gin *gin.Context) {
+
+	response, err := services.AllCurrencies()
+	if err != nil && response == nil {
+		fmt.Println(err)
+		gin.JSON(http.StatusBadRequest, err)
+		return
+
+	}
+	gin.JSON(http.StatusOK, response)
+}

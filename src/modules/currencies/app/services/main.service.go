@@ -24,7 +24,7 @@ func CurrencyConversion(base string, qoute string, amount string) (interface{}, 
 		Amount    float64 `json:"amount"`
 		Converted float64 `json:"converted"`
 	}
-	API_CURRENCY_URL, err := helpers.EnvGetProperty("CURRENCY_API")
+	API_CURRENCY_URL, err := helpers.EnvGetProperty("CURRENCY_API_RATES")
 	if err != nil {
 		return nil, err
 	}
@@ -81,4 +81,26 @@ func CurrencyConversion(base string, qoute string, amount string) (interface{}, 
 		Converted: converted,
 	}
 	return convertedResponse, nil
+}
+
+func AllCurrencies() (interface{}, error) {
+	API_CURRENCY_URL, err := helpers.EnvGetProperty("CURRENCY_API_CURRENCIES")
+	if err != nil {
+		return nil, err
+	}
+
+	response, err := http.Get(API_CURRENCY_URL)
+	if err != nil {
+		fmt.Println("error request", err)
+		return nil, err
+	}
+
+	var allCurrencies map[string]string
+	err1 := json.NewDecoder(response.Body).Decode(&allCurrencies)
+	if err1 != nil {
+		fmt.Println("error1", err1)
+		return nil, err1
+	}
+
+	return allCurrencies, nil
 }
