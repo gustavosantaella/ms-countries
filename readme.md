@@ -22,6 +22,12 @@ You can test the api here [Test api here](https://ms-countries.onrender.com/)
 | :-------- | :------- | :-------------------------------- |
 | `iso3`      | `string` | **Required**. Id of item to fetch |
 
+
+### List currencies 
+```http
+  GET /currencies
+```
+
 #### Currency conversion
 Get aprox currency conversion
 
