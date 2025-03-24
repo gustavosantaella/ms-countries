@@ -2,7 +2,6 @@ package main
 
 import (
 	"net/http"
-	"project/src/databases/supabase"
 	"project/src/router"
 
 	"github.com/gin-gonic/gin"
@@ -11,7 +10,6 @@ import (
 var a string
 
 func main() {
-	supabase.Connect()
 	r := gin.Default()
 	r.GET("/ping", func(ctx *gin.Context) {
 		ctx.JSON(http.StatusOK, gin.H{

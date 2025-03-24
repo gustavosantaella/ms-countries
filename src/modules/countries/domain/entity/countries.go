@@ -20,3 +20,9 @@ type Country struct {
 	Longitude       float64 `json:"longitude"`
 	Emoji           string  `json:"emoji"`
 }
+
+type CountryData struct {
+	Name     string `json:"name"`
+	Code     string `json:"code"`
+	DialCode string `json:"dialCode"`
+}
