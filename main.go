@@ -18,7 +18,9 @@ func main() {
 		})
 	})
 
-	r.Use(cors.Default())
+	config := cors.DefaultConfig()
+	config.AllowAllOrigins = true
+	r.Use(cors.New(config))
 
 	router.Apirouter(r)
 	// PORT, _ := helpers.EnvGetProperty("PORT")
