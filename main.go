@@ -4,6 +4,7 @@ import (
 	"net/http"
 	"project/src/router"
 
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
 
@@ -16,6 +17,8 @@ func main() {
 			"pong": true,
 		})
 	})
+
+	r.Use(cors.Default())
 
 	router.Apirouter(r)
 	// PORT, _ := helpers.EnvGetProperty("PORT")
