@@ -20,6 +20,7 @@ func main() {
 
 	config := cors.DefaultConfig()
 	config.AllowAllOrigins = true
+	config.AllowCredentials = true
 	r.Use(cors.New(config))
 
 	router.Apirouter(r)
